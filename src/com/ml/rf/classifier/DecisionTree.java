@@ -21,6 +21,8 @@ public class DecisionTree {
     // by default, we set the size as square root of total number of features.  
     private int sampleFeatureSize;
     
+    private int numLabels = 2;
+    
     // minimum size of subtree, this value can be used as condition for termination.
     // by default, we set the size as 5. 
     private int minTreeSize = 3;
@@ -93,7 +95,7 @@ public class DecisionTree {
     private TreeNode build(DataSet dataset){
         // create a new leaf node if either of condition met. 
         if (dataset.getNumOfInstance() < minTreeSize || hasSameLabel(dataset.getLabels())){
-            TreeNode leafNode = new LeafNode(dataset.getNumOfLabels(), dataset.getLabels());
+            TreeNode leafNode = new LeafNode(numLabels, dataset.getLabels());
             return leafNode;
         }
         
@@ -208,7 +210,9 @@ public class DecisionTree {
           
         // create new decision node, and set the left child and right child. 
         TreeNode node = new DecisionNode(bestFeatureIdx, mean);
-        ((DecisionNode)node).setLeftChild(build(new DataSet(leftDataSet)));
+        if (leftDataSet.size() > 1)
+            ((DecisionNode)node).setLeftChild(build(new DataSet(leftDataSet)));
+        if (rightDataSet.size() > 1)
         ((DecisionNode)node).setRightChild(build(new DataSet(rightDataSet)));
 
         return node;

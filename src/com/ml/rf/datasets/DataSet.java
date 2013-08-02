@@ -21,20 +21,26 @@ public class DataSet {
     private int numOfInstance;
     // total number of features. 
     private int numOfFeatures;
-    // total number of class labels. Each label is an integer. 
-    private int numOfLabels;
+   
    
     public DataSet(List<Instance> trainingData){
         this.trainingData = trainingData;
+        init();
+    }
+    
+    public DataSet(List<double[]> featureVectors, List<Integer> labels){
+        trainingData = new ArrayList<Instance>();
+        for (int i = 0; i < featureVectors.size(); i++){
+            trainingData.add(new Instance(featureVectors.get(i), labels.get(i)));
+        }
+        init();
+    }
+     
+    private void init(){
         this.numOfInstance = trainingData.size();
         this.numOfFeatures = trainingData.get(0).getFeatureVector().length;
-        
-        Set<Integer> labelSet = new HashSet<Integer>();
-        for (int i = 0; i < trainingData.size(); i++)
-            labelSet.add(trainingData.get(i).getLabelIndex());
-        this.numOfLabels = labelSet.size();
     }
-       
+    
     public List<Instance> getTrainingData(){
         return trainingData;
     }
@@ -46,11 +52,7 @@ public class DataSet {
     public int getNumOfFeatures(){
         return numOfFeatures;
     }
-    
-    public int getNumOfLabels(){
-        return numOfLabels;
-    }
-    
+      
     public List<Integer> getLabels(){
         List<Integer> labels = new ArrayList<Integer>();
         for (Instance instance : trainingData){

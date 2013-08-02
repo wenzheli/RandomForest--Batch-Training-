@@ -50,7 +50,7 @@ public class RandomForest {
         this.dataset = dataset;
         numTrees = 100;  // TODO need a adaptable default value. 
         decisionTrees = new ArrayList<DecisionTree>(numTrees);
-        this.sampleFeatureSize = 20; // TODO need a adaptable default value.
+        this.sampleFeatureSize = 50; // TODO need a adaptable default value.
         createRandomForest();
     }
     
@@ -67,6 +67,7 @@ public class RandomForest {
      */
     public void createRandomForest(){
         for (int i = 0; i < numTrees; i++){
+            System.out.println("creating " + i + "th tree");
             DecisionTree dt = new DecisionTree();
             dt.buildTree(getBootStrapData(),sampleFeatureSize);
             dt.setTreeMinSize(TREE_MIN_SIZE);
@@ -104,7 +105,7 @@ public class RandomForest {
      *                              labels. 
      */
     public double[] predictDist(double[] featureVector){
-        int totalNumLabels = dataset.getNumOfFeatures();
+        int totalNumLabels = 2;
         double[] finalPredict = new double[totalNumLabels];
         // iterate through each decision tree, and make prediction. 
         for (int i = 0; i < numTrees; i++){
