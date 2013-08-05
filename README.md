@@ -32,7 +32,7 @@ refer to : http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/mlbook/ch3.p
 Code Example (you can also find it in the SimpleExample.java:
 
 ```java
-// create artificial training data. 
+// create artificial training data for binary classification(also work for multi-class). 
 List<double[]> data = new ArrayList<double[]>();
 data.add(new double[]{1,2});
 data.add(new double[]{2,4});
@@ -48,7 +48,23 @@ label.add(0);
 label.add(0);
 label.add(0);
 label.add(0);
-       
+label.add(1);
+label.add(1);
+label.add(1);
+label.add(1);   
+```
 
-        
+<b> build random forest <b>
+```java
+// build random forest. 100: # of trees to create   2: # of random features to select when deciding split the node.
+RandomForest rf = new RandomForest(new DataSet(data, label), 100, 2);
+```
+<b> test </b>
+```java
+List<double[]> testData = new ArrayList<double[]>();
+testData.add(new double[]{3,5});   
+testData.add(new double[]{1,10});  
+for (double[] testSample: testData){
+    System.out.println(rf.predictLabel(testSample)); // you can also predict label probability. 
+}
 ```
