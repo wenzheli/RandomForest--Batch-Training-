@@ -14,7 +14,7 @@ import com.ml.rf.classifier.RandomForest;
 import com.ml.rf.datasets.DataSet;
 import com.ml.rf.datasets.Instance;
 
-public class ClassificationExample {
+public class BigExample {
     
     public Map<String, Integer> labelIndexMap = new HashMap<String, Integer>();
     public Map<Integer, String> indexLabelMap = new HashMap<Integer, String>();
@@ -26,7 +26,7 @@ public class ClassificationExample {
     public static final String TEST_LABEL = "http://archive.ics.uci.edu/ml/machine-learning-databases/madelon/madelon_valid.labels";
     
     public static void main(String[] args) throws IOException{
-        ClassificationExample example = new ClassificationExample();
+        BigExample example = new BigExample();
         List<double[]> data = example.getData(TRAIN_DATA);
         List<Integer> labels = example.getLabel(TRAIN_LABLE);
         
@@ -40,6 +40,7 @@ public class ClassificationExample {
         for (int i = 0; i < testData.size(); i++){
             double[] featureVector = testData.get(i);
             int correctLabel = rf.predictLabel(featureVector);
+            System.out.println(correctLabel);
             String strLabel = example.indexLabelMap.get(correctLabel);
             if (correctLabels.get(i).equals(strLabel))
                 correct++;
@@ -47,8 +48,7 @@ public class ClassificationExample {
         }
         
         System.out.println(correct);
-        System.out.println(total);
-        
+        System.out.println(total); 
     }
     
     
@@ -65,7 +65,6 @@ public class ClassificationExample {
         List<double[]> samples = new ArrayList<double[]>();
         String inputLine;
         while ((inputLine = in.readLine()) != null){
-            if (cnt++ > 100) break;
             String[] features = inputLine.split("\\s+");
             double[] sample = new double[features.length];
             for (int i = 0; i < features.length; i++){
@@ -87,7 +86,6 @@ public class ClassificationExample {
         int idx = 0;
         String inputLine;
         while ((inputLine = in.readLine()) != null){
-            if (cnt++ > 100) break;
             if (!labelIndexMap.containsKey(inputLine)){
                 labelIndexMap.put(inputLine, idx);
                 indexLabelMap.put(idx, inputLine);

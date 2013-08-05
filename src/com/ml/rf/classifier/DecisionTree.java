@@ -25,7 +25,7 @@ public class DecisionTree {
     
     // minimum size of subtree, this value can be used as condition for termination.
     // by default, we set the size as 5. 
-    private int minTreeSize = 3;
+    private int minTreeSize = 10;
     
     public DecisionTree(){ 
     }
@@ -199,7 +199,6 @@ public class DecisionTree {
         List<Instance> leftDataSet = new ArrayList<Instance>();
         List<Instance> rightDataSet = new ArrayList<Instance>();
         // divide the datasets into two subset, based on the mean value. 
-        int leftSize = 0;
         for (int i = 0; i < dataSize; i++){
             // smaller one goes to left. 
             if ((dataset.getInstance(i).getFeatureVector())[bestFeatureIdx] < mean)
@@ -210,10 +209,21 @@ public class DecisionTree {
           
         // create new decision node, and set the left child and right child. 
         TreeNode node = new DecisionNode(bestFeatureIdx, mean);
-        if (leftDataSet.size() > 1)
+        if (leftDataSet.size() > 0){
             ((DecisionNode)node).setLeftChild(build(new DataSet(leftDataSet)));
-        if (rightDataSet.size() > 1)
-        ((DecisionNode)node).setRightChild(build(new DataSet(rightDataSet)));
+        } else{
+            // create leaf node, with majority distribution. 
+            TreeNode leafNode = new LeafNode(numLabels, dataset.getLabels());
+            ((DecisionNode)node).setLeftChild(leafNode);
+        }
+            
+        if (rightDataSet.size() > 0){
+            ((DecisionNode)node).setRightChild(build(new DataSet(rightDataSet)));
+        } else{
+            // create leaf node, with majority distribution. 
+            TreeNode leafNode = new LeafNode(numLabels, dataset.getLabels());
+            ((DecisionNode)node).setRightChild(leafNode);
+        }
 
         return node;
     }
