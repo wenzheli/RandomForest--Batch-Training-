@@ -33,7 +33,7 @@ The calculation of entropy and information gain,
 refer to : http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/mlbook/ch3.pdf
 
 
-Code Example (you can also find it in the SimpleExample.java:
+<b>Code Example (you can also find it in the SimpleExample.java:<b>
 ```java
 // create artificial training data for binary classification(also work for multi-class). 
 List<double[]> data = new ArrayList<double[]>();
