@@ -5,12 +5,16 @@ Random forest is a bagging approach for combining multiple decision trees. The p
 across all of the trees. The code is easy to understand, so good for someone who wants to learn about random forest. 
 You can run through the example files to easily figure out how it works. 
 
+
+<ul>
+<li>N: # of instances in training data</li>
+<li>M: # of trees in the random forest</li>
+<li>D: # of attributes for each instance (size of feature vector)</li>
+</ul>
+
+
+
 The process of building random forest (used in this implementation) as follows:
-
-N: # of instances in training data
-M: # of trees in the random forest
-D: # of attributes for each instance (size of feature vector)
-
 <ul>
  <li>(a) Draw a bootstrap sample Z* of size N from the training data (with replacement) </li>
  <li>(b) Build a tree T_{i} for the bootstrap data , by recursively
@@ -30,7 +34,6 @@ refer to : http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/mlbook/ch3.p
 
 
 Code Example (you can also find it in the SimpleExample.java:
-
 ```java
 // create artificial training data for binary classification(also work for multi-class). 
 List<double[]> data = new ArrayList<double[]>();
