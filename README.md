@@ -56,7 +56,8 @@ label.add(1);
 
 <b> build random forest <b>
 ```java
-// build random forest. 100: # of trees to create   2: # of random features to select when deciding split the node.
+// build random forest. 100: # of trees to create   2: # of random features to select 
+// when deciding split the node.
 RandomForest rf = new RandomForest(new DataSet(data, label), 100, 2);
 ```
 <b> test </b>
